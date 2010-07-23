@@ -511,7 +511,7 @@ EOF
 
     def depends_on name
       @deps ||= []
-      @external_deps ||= {:python => [], :perl => [], :ruby => [], :jruby => []}
+      @external_deps ||= {:python => [], :perl => [], :ruby => [], :jruby => [], :pkgconfig => []}
 
       case name
       when String
@@ -521,6 +521,10 @@ EOF
         case value
         when :python, :perl, :ruby, :jruby
           @external_deps[value] << key
+          return
+        when :pkgconfig
+          @external_deps[value] << key
+          @deps << 'pkg-config'
           return
         when :optional, :recommended
           name = key
