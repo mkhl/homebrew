@@ -18,7 +18,7 @@ class Grabfs <Formula
     cp "windowfs", "Cocoa/grabfs"
     Dir.chdir "Cocoa" do system "xcodebuild" end
     bin.install "windowfs" => "grabfs"
-    bin.install "Cocoa/build/Release/GrabFS.app"
+    prefix.install "Cocoa/build/Release/GrabFS.app"
   end
 end
 __END__
