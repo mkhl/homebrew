@@ -1,24 +1,29 @@
 require 'formula'
 
 class Grabfs <Formula
+  url 'http://macfuse.googlecode.com/svn/tags/macfuse-2.0/filesystems/grabfs/'
   head 'http://macfuse.googlecode.com/svn/trunk/filesystems/grabfs/'
   homepage 'http://www.osxbook.com/book/bonus/chapter11/grabfs/'
+  version '2.0'
 
   depends_on 'pcre'
   depends_on 'fuse' => :pkgconfig
 
   def patches
-    { :p0 => DATA }
+    DATA
   end
 
   def install
     system "make"
-    bin.install "windowfs"
+    cp "windowfs", "Cocoa/grabfs"
+    Dir.chdir "Cocoa" do system "xcodebuild" end
+    bin.install "windowfs" => "grabfs"
+    bin.install "Cocoa/build/Release/GrabFS.app"
   end
 end
 __END__
---- Makefile.orig	2008-08-19 19:03:46.000000000 +0200
-+++ Makefile	2010-07-21 17:14:13.000000000 +0200
+--- a/Makefile	2008-08-19 19:03:46.000000000 +0200
++++ b/Makefile	2010-07-21 17:14:13.000000000 +0200
 @@ -5,16 +5,15 @@
  #
  # http://code.google.com/p/macfuse/
