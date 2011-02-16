@@ -8,17 +8,12 @@ class Clojure < Formula
 
   def script; <<-EOS.undent
     #!/bin/sh
-    # Clojure wrapper script.
-    # With no arguments runs Clojure's REPL.
+    # Run Clojure.
 
-    # Put the Clojure jar from the cellar and the current folder in the classpath.
-    CLOJURE=$CLASSPATH:#{prefix}/clojure-1.4.0.jar:${PWD}
+    # Add Clojure jar to CLASSPATH.
+    CLOJURE="${CLASSPATH:+$CLASSPATH:}#{prefix}/clojure-#{version}.jar"
 
-    if [ "$#" -eq 0 ]; then
-        java -cp "$CLOJURE" clojure.main --repl
-    else
-        java -cp "$CLOJURE" clojure.main "$@"
-    fi
+    exec java -cp "$CLOJURE" clojure.main "$@"
     EOS
   end
 
