@@ -8,22 +8,16 @@ class CpioDownloadStrategy < CurlDownloadStrategy
 end
 
 class Mksh < Formula
-  homepage 'https://www.mirbsd.org/mksh.htm'
-  url 'https://www.mirbsd.org/MirOS/dist/mir/mksh/mksh-R40d.cpio.gz',
-      :using => CpioDownloadStrategy
+  homepage 'http://mirbsd.de/mksh'
   version '0.40d'
+  url 'https://www.mirbsd.org/MirOS/dist/mir/mksh/mksh-R40d.cpio.gz',
+    :using => CpioDownloadStrategy
   md5 'c6428401103367730a95b99284bf47dc'
 
   def install
-    system 'sh ./Build.sh -combine'
-    bin.install 'mksh'
-    man1.install 'mksh.1'
-  end
-
-  def caveats; <<-EOS.undent
-    To allow using mksh as a login shell, run this as root:
-        echo #{HOMEBREW_PREFIX}/bin/mksh >> /etc/shells
-    Then, any user may run `chsh` to change their shell.
-    EOS
+    system "sh ./Build.sh -r -combine"
+    doc.install "dot.mkshrc"
+    man1.install gzip("mksh.1")
+    bin.install "mksh"
   end
 end
