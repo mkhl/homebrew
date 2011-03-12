@@ -7,8 +7,9 @@ class SpringRoo < Formula
   version '1.2.2'
 
   def install
-    rm Dir["bin/*.bat"]
-    File.rename "bin/roo.sh", "bin/roo"
-    prefix.install %w[annotations bin bundle conf docs legal samples]
+    rm_f Dir["bin/*.bat"]
+    libexec.install %w[annotations bin bundle conf docs legal samples]
+    bin.mkpath
+    ln_s libexec+'bin/roo.sh', bin+'roo'
   end
 end
