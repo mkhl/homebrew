@@ -17,7 +17,6 @@ class Ffmpeg < Formula
     'lame'         => ['libmp3lame'],
     'rtmpdump'     => ['librtmp'],
     'theora'       => ['libtheora'],
-    'libogg'       => ['libogg'],
     'libvorbis'    => ['libvorbis'],
     'libvpx'       => ['libvpx'],
     'xvid'         => ['libxvid'],
