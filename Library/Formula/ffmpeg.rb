@@ -11,7 +11,9 @@ class Ffmpeg < Formula
 
   head 'git://git.videolan.org/ffmpeg.git'
 
-  def self.dependencies; {
+  depends_on 'yasm' => :build
+
+  def self.ffmpeg_dependencies; {
     'x264'         => ['libx264'],
     'faac'         => ['libfaac'],
     'lame'         => ['libmp3lame'],
@@ -26,7 +28,7 @@ class Ffmpeg < Formula
     'opencore-amr' => ['libopencore-amrnb', 'libopencore-amrwb']
   }; end
 
-  dependencies.keys.each do |keg|
+  ffmpeg_dependencies.keys.each do |keg|
     depends_on keg => :optional
   end
 
@@ -50,7 +52,7 @@ class Ffmpeg < Formula
             "--enable-libfreetype",
             "--cc=#{ENV.cc}"]
 
-    self.class.dependencies.each do |keg, libs|
+    self.class.ffmpeg_dependencies.each do |keg, libs|
       libs.each do |lib|
         args << "--enable-#{lib}" if Formula.factory(keg).linked_keg.exist?
       end
