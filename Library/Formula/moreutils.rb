@@ -6,7 +6,7 @@ class Moreutils < Formula
   mirror 'http://ftp.us.debian.org/debian/pool/main/m/moreutils/moreutils_0.46.tar.gz'
   md5 '658f9cc6b6dcc0b50dcff714e13b22dc'
 
-  depends_on 'docbook2x' => :optional
+  # depends_on 'docbook2x' => :optional
 
   def patches
     { :p0 => DATA }
