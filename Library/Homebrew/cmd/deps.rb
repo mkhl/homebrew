@@ -13,6 +13,10 @@ module Homebrew extend self
       Formula.each do |f|
         puts "#{f.name}: #{f.deps*' '}"
       end
+    elsif ARGV.include? '--installed'
+      fs = Formula.all.select do |f|
+        puts "#{f.name}: #{f.deps*' '}" if f.installed?
+      end
     elsif ARGV.include? '--tree'
       raise FormulaUnspecifiedError if ARGV.named.empty?
       ARGV.formulae.each do |f|
